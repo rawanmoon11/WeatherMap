@@ -11,7 +11,7 @@ var titles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 titles.addTo(map);
 
-var marker = L.marker([15.5007, 32.5599]).addTo(map);
+
 const city = document.getElementById("city");
 const getWeatherButton = document.getElementById("Search_city");
 
