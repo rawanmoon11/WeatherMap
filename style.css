@@ -1,0 +1,206 @@
+.map_container {
+
+    position: relative;
+}
+
+body {
+    font-size: 18px;
+    font-family: "Poltawski Nowy", serif;
+}
+
+h1 {
+    text-align: center;
+    font-size: 36px;
+    box-shadow: 0 1px 1px 0 rgba(198, 145, 145, 0.2), 0 1px 3px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+#city {
+    border: rgb(104, 104, 237) 1px solid;
+    flex: 1;
+    padding: 8px 12px;
+    box-shadow: 0 4px 8px 0 rgba(198, 145, 145, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-family: initial;
+}
+
+#city:focus {
+    border-color: rgb(28, 28, 32);
+    box-shadow: 0 4px 8px 0 rgba(7, 1, 71, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    outline: none;
+}
+
+#err_box {
+    position: absolute;
+    padding: 12px 16px;
+    width: 90%;
+    max-width: 800px;
+    border: rgb(230, 178, 178) 1px solid;
+    background-color: rgb(249, 213, 206);
+    box-shadow: 0 4px 8px 0 rgba(198, 145, 145, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    z-index: 1000;
+    left: 20%;
+    top: 100px;
+    transform: translateX(-50%);
+    color: rgb(86, 3, 3);
+    border-top-color: rgb(145, 1, 1);
+}
+
+.hidden {
+    display: none;
+}
+
+#load {
+    background-color: antiquewhite;
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    border: rgb(203, 201, 201) 10px solid;
+    border-top-color: rgb(1, 1, 109);
+    border-radius: 50%;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+
+    animation: spinner 1s linear infinite;
+}
+
+@keyframes spinner {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+form {
+    display: flex;
+    max-width: 800px;
+    gap: 20px;
+    align-items: center;
+    margin: 20px auto;
+
+}
+
+#map {
+    height: 70vh;
+    width: 100%;
+    border: 3px solid navy;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+
+}
+
+#getWeather {
+    width: 100px;
+    color: rgb(240, 239, 243);
+    background-color: rgb(0, 0, 103);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    font-family: initial;
+    padding: 8px 12px;
+    cursor: pointer;
+
+}
+
+#getWeather:hover {
+    border: rgb(255, 255, 255) 2px solid;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+
+
+.leaflet-popup-content-wrapper {
+    box-sizing: border-box;
+    color: rgb(250, 251, 255);
+    background-color: rgb(0, 0, 103);
+    border: rgb(31, 0, 81) 1px solid;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#popup {
+    box-sizing: border-box;
+    min-width: 200px;
+    color: rgb(250, 251, 255);
+    background-color: rgb(0, 0, 103);
+    border: rgb(31, 0, 81) 1px solid;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+
+#share,
+#facebook {
+    color: rgb(4, 0, 59);
+    background-color: rgb(255, 255, 255);
+    width: 100px;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+
+}
+
+#share:hover,
+#facebook:hover {
+
+    color: rgb(240, 239, 243);
+    background-color: rgb(0, 0, 103);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+
+#but_con {
+    display: flex;
+    gap: 5px;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/*mobile screen */
+@media(max-width:600px) {
+    body {
+        font-size: 14px;
+        font-family: "Poltawski Nowy", serif;
+    }
+
+    h1 {
+        font-size: 28px;
+
+    }
+
+    form {
+        flex-direction: column;
+
+    }
+
+    #err_box {
+        position: absolute;
+        padding: 12px 16px;
+        width: 90%;
+        max-width: 250px;
+        transform: translateX(-50%);
+
+    }
+
+    #popup h4,
+    #popup h5 {
+        font-size: 11px;
+    }
+
+    #wea_icon {
+        width: 60px;
+        height: 60px;
+
+    }
+}
