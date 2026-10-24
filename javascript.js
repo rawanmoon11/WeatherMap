@@ -3,8 +3,7 @@ let lat;
 let cityname;
 var map = L.map('map').setView([15.5007, 32.5599], 6);
 let nameExpress = /^[\p{L}]+(?:\s+[\p{L}]+)*$/u;
-let marker;
-
+var marker;
 const apikey = "a3a77587fe0d2fdc6726a70663ec305a";
 var titles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
@@ -12,7 +11,6 @@ var titles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 })
 
 titles.addTo(map);
-
 
 const city = document.getElementById("city");
 const getWeatherButton = document.getElementById("Search_city");
@@ -45,14 +43,20 @@ async function getCoord() {
             lat = Number(data[0].lat);
             lon = Number(data[0].lon);
             map.flyTo([lat, lon], 6);
-            marker.setLatLng([lat, lon]);
+            if (marker) {
+                marker.setLatLng([lat, lon]);
+
+            }
+            else {
+                marker = L.marker([lat, lon]).addTo(map);
+            }
             await getWeather(lat, lon);
 
         }
         else {
             displayerror("city not found");
         }
-
+        console.log(data);
     }
     catch (error) {
         displayerror(error.message);
