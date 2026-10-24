@@ -3,6 +3,8 @@ let lat;
 let cityname;
 var map = L.map('map').setView([15.5007, 32.5599], 6);
 let nameExpress = /^[\p{L}]+(?:\s+[\p{L}]+)*$/u;
+let marker;
+
 const apikey = "a3a77587fe0d2fdc6726a70663ec305a";
 var titles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
