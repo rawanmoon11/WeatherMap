@@ -72,7 +72,7 @@ async function getWeather(lat, lon) {
     const data = await response.json();
     marker.bindPopup(
         ` <div id="popup">
-                <h4>${data.name}</h4>
+                <h4>${cityname}</h4>
                 <h5>temperature:${data.main.temp}°C</h5>
                 <h5>clouds:${data.clouds.all}%</h5>
                 <h5>humidity:${data.main.humidity}%</h5>
