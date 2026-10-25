@@ -59,6 +59,7 @@ map.on('popupopen', function (e) {
 titles.addTo(map);
 
 const city = document.getElementById("city");
+city.addEventListener("input", hideerror);
 const getWeatherButton = document.getElementById("Search_city");
 
 getWeatherButton.addEventListener("submit", function (event) {
