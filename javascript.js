@@ -9,9 +9,10 @@ var titles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 })
-map.on('popupopen', function () {
-    const sharebutton = document.getElementById("share");
-    const facebook = document.getElementById("facebook");
+map.on('popupopen', function (e) {
+    const box = e.popup.getElement();
+    const sharebutton = box.querySelector("#share");
+    const facebook = box.querySelector("#facebook");
 
     if (sharebutton) {
         const message = ` ${cityname}
@@ -111,15 +112,19 @@ async function getWeather(lat, lon) {
     hideerror();
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&appid=${encodeURIComponent(apikey)}&units=metric`);
     if (!response.ok) {
-      if (response.status===404) {        throw new Error("weather data not found");
-}  
-      else if (response.status===429) {        throw new Error("many request , wait for response");
-} 
-      else {        throw new Error("Service Error");
-} 
+        if (response.status === 404) {
+            throw new Error("weather data not found");
+        }
+        else if (response.status === 429) {
+            throw new Error("many request , wait for response");
+        }
+        else {
+            throw new Error("Service Error");
+        }
     }
-        
+
     geodata = await response.json();
+    marker.unbindPopup();
     marker.bindPopup(
         ` <div id="popup">
                 <h4>${cityname}</h4>
