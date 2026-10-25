@@ -2,7 +2,6 @@ let lon;
 let lat;
 let cityname;
 var map = L.map('map').setView([15.5007, 32.5599], 6);
-let nameExpress = /^[\p{L}]+(?:\s+[\p{L}]+)*$/u;
 var marker;
 let geodata;
 const apikey = "a3a77587fe0d2fdc6726a70663ec305a";
@@ -47,7 +46,7 @@ map.on('popupopen', function () {
                 window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, "_blank");
             }
             catch (error) {
-                displayerror(error);
+                displayerror(error.message);
 
 
             }
@@ -75,15 +74,10 @@ async function getCoord() {
         displayerror("please enter city name ");
         return;
     }
-    else if (!nameExpress.test(cityname)) {
-        hideerror();
-        displayerror("please enter only letters ");
-        return;
-    }
     displayLoad();
     try {
         const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(cityname)}&format=json&limit=1`);
-        if (!response.ok) throw new Error("error");
+        if (!response.ok) throw new Error("location services unavailable");
         const data = await response.json();
         if (data.length > 0) {
             lat = Number(data[0].lat);
@@ -100,9 +94,8 @@ async function getCoord() {
 
         }
         else {
-            displayerror("city not found");
+            displayerror("location not avaliabe");
         }
-        console.log(data);
     }
     catch (error) {
         displayerror(error.message);
@@ -116,11 +109,17 @@ async function getCoord() {
 }
 async function getWeather(lat, lon) {
     hideerror();
-
     const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&appid=${encodeURIComponent(apikey)}&units=metric`);
-    if (!response.ok) throw new Error("error");
+    if (!response.ok) {
+      if (response.status===404) {        throw new Error("weather data not found");
+}  
+      else if (response.status===429) {        throw new Error("many request , wait for response");
+} 
+      else {        throw new Error("Service Error");
+} 
+    }
+        
     geodata = await response.json();
-
     marker.bindPopup(
         ` <div id="popup">
                 <h4>${cityname}</h4>
